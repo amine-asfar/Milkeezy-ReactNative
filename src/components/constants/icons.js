@@ -1,15 +1,25 @@
 import aide from "../../assets/icons/aide.png";
-import Home from "../../assets/icons/Home.png";
-import Compte from "../../assets/icons/Compte.png";
-import RDV from "../../assets/icons/RDV.png";
-import Meezy from "../../assets/icons/Meezy.png";
+ 
+import home from "../../assets/icons/Home.png";
+import homeActive from "../../assets/icons/HomeActive.png";
+import compte from "../../assets/icons/Compte.png";
+import compteActive from "../../assets/icons/CompteActive.png";
+import rdv from "../../assets/icons/RDV.png";
+import rdvActive from "../../assets/icons/RDVActive.png";
+import meezy from "../../assets/icons/Meezy.png";
+import meezyActive from "../../assets/icons/MeezyActive.png";
 
 
 export default {
     aide,
-    Home,
-    Compte,
-    RDV,
-    Meezy,
+    home,
+    compte,
+    rdv,
+    meezy,
+    homeActive,
+    compteActive,
+    rdvActive,
+    meezyActive,
+    
 }
 
