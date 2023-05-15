@@ -26,16 +26,16 @@ export default function App() {
 
         switch (route.name) {
           case 'Home':
-            icon = focused? icons.home : icons.homeActive ;
+            icon = focused? icons.homeActive : icons.home ;
             break;
           case 'Rendez-vous':
-            icon = focused? icons.rdv : icons.rdvActive ;
+            icon = focused? icons.rdvActive : icons.rdv;
             break;
           case 'Meezy':
-            icon = focused? icons.meezy : icons.meezyActive ;
+            icon = focused? icons.meezyActive : icons.meezy;
             break;
           case 'Compte':
-            icon = focused? icons.compte : icons.compteActive ;
+            icon = focused? icons.compteActive : icons.compte ;
             break;
           default:
             icon = icons.home;

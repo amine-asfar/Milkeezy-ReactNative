@@ -1,7 +1,7 @@
 // Header.js
 
 import React from 'react';
-import { View, Image, StyleSheet ,SafeAreaView} from 'react-native';
+import { View, Image, StyleSheet ,SafeAreaView,} from 'react-native';
 
 import { images,COLORS,icons } from './constants';
 import {useSafeAreaInsets,} from 'react-native-safe-area-context';
@@ -15,6 +15,7 @@ const Header = () => {
     <SafeAreaView style={{backgroundColor:COLORS.primary}}>
     <View style={styles.header}>
       <Image source={images.logo} style={styles.image}/>
+
       <Image source={icons.aide} style={styles.icon}/>
     </View>
     </SafeAreaView>
