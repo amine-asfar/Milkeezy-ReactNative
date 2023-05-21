@@ -8,7 +8,8 @@ import rdv from "../../assets/icons/RDV.png";
 import rdvActive from "../../assets/icons/RDVActive.png";
 import meezy from "../../assets/icons/Meezy.png";
 import meezyActive from "../../assets/icons/MeezyActive.png";
-
+import camera from "../../assets/icons/camera.png";
+import flech from "../../assets/icons/flechDroite.png";
 
 export default {
     aide,
@@ -20,6 +21,9 @@ export default {
     compteActive,
     rdvActive,
     meezyActive,
+    camera,
+    flech
+
     
 }
 

@@ -1,7 +1,7 @@
 const COLORS = {
     primary: "#54847C",
-    secondary: "#444262",
-    tertiary: "#FF7754",
+    secondary: "#48897F",
+    tertiary: "#91BDC6",
   
     gray: "#83829A",
     gray2: "#C1C0C8",
@@ -13,7 +13,6 @@ const COLORS = {
   const FONT = {
     bold: "GBold",
     light: "GLight",
-    
   };
   
   const SIZES = {

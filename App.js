@@ -9,11 +9,33 @@ import Compte from './src/screens/Compte';
 import Meezy from './src/screens/Meezy';
 import Header from './src/components/Header';
 import { images,COLORS,icons } from './src/components/constants';
+//import font
+import * as FONT from 'expo-font';
+import React from 'react';
+import { useFonts } from 'expo-font';
+
+
 
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
+  // const [loaded] = useFonts({
+  //   GBold: require('./src/assets/fonts/Gilroy-ExtraBold.otf'),
+  //   GLight: require('./src/assets/fonts/Gilroy-Light.otf'),
+    
+  // });
+  // if (!loaded) {  
+  //   return null;
+  // }
+
+
+
+
+  
+  
+  
+
   return (
 
     <NavigationContainer>

@@ -1,6 +1,9 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-function RendezVous() {
+
+function RendezVous(customID) {
+
+  
   return (
     <View>
       <Text>RDV</Text>
@@ -9,3 +12,6 @@ function RendezVous() {
 }
 
 export default RendezVous
+
+
+
