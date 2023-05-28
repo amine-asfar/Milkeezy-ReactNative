@@ -9,31 +9,12 @@ import Compte from './src/screens/Compte';
 import Meezy from './src/screens/Meezy';
 import Header from './src/components/Header';
 import { images,COLORS,icons } from './src/components/constants';
-//import font
-import * as FONT from 'expo-font';
-import React from 'react';
-import { useFonts } from 'expo-font';
-
 
 
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
+  
   const Tab = createBottomTabNavigator();
-  // const [loaded] = useFonts({
-  //   GBold: require('./src/assets/fonts/Gilroy-ExtraBold.otf'),
-  //   GLight: require('./src/assets/fonts/Gilroy-Light.otf'),
-    
-  // });
-  // if (!loaded) {  
-  //   return null;
-  // }
-
-
-
-
-  
-  
   
 
   return (
@@ -64,7 +45,7 @@ export default function App() {
             break;
         }
 
-        // You can add tintColor to the image if you want to change colors
+      
         return <Image source={icon} style={{ width: size, height: size, tintColor:"white", }} />;
       },
       tabBarStyle: {
@@ -79,9 +60,7 @@ export default function App() {
       
   }}
   
-  
-  
-    
+
   >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Rendez-vous" component={RendezVous} />

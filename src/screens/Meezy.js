@@ -2,58 +2,58 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
 import { images, COLORS, icons } from '../components/constants';
 
-const userAvatar = require('../assets/images/user.png');
+const userAvatar = require('../assets/images/UserMeezy.png');
 const botAvatar = require('../assets/images/Meezy.png');
 const sadBotAvatar = require('../assets/images/MeezyTriste.png');
 const happyBotAvatar = require('../assets/images/MeezyAmoureaux.png');
 
 const subjects = [
   "Douleur lors de l'allaitement",
-  "sujet 2",
-  "sujet 3",
-  "sujet 4",
-  "sujet 5",
+  "Mon bébé tête tout le temps",
+  "Pas assez de lait",
+  "La fatigue",
+  "L’alimentation",
 ];
 
 const stepsBySubject = {
- "Douleur lors de l'allaitement": [
-  {
-    id: '0',
-    message: 'Consultation',
-    end: true,
-    user: 'bot',
-    botAvatar: botAvatar,
-  },
+  "Douleur lors de l'allaitement": [
+    {
+      id: '0',
+      message: 'Nous vous conseillons de consulter un professionnel.',
+      end: true,
+      user: 'bot',
+      botAvatar: sadBotAvatar,
+    },
     {
       id: '1',
-      message: 'Question 1?',
+      message: 'Avez-vous des douleurs au sein ou au mamelon ?',
       options: [
         { value: 1, label: 'Douleur au sein', trigger: '2' },
         { value: 2, label: 'Douleur au mamelon', trigger: '0' },
-        
-      ],
-      user: 'bot',
-      botAvatar: botAvatar,
-    },
-    {
-      id: '2',
-      message: 'Q2',
-      options: [
-        { value: 1, label: 'Depuis moins de 48H', trigger: '3' },
-        { value: 2, label: 'Depuis plus de 48H', trigger: '0' },
-        
+
       ],
       user: 'bot',
       botAvatar: sadBotAvatar,
     },
-   
+    {
+      id: '2',
+      message: 'Depuis moins de 48h ou plus de 48h ?',
+      options: [
+        { value: 1, label: 'Depuis moins de 48H', trigger: '3' },
+        { value: 2, label: 'Depuis plus de 48H', trigger: '0' },
+
+      ],
+      user: 'bot',
+      botAvatar: sadBotAvatar,
+    },
+
     {
       id: '3',
       message: 'Q3',
       options: [
         { value: 1, label: 'sur les 2 seins', trigger: '5' },
         { value: 2, label: 'sur 1 sein', trigger: '4' },
-        
+
       ],
       user: 'bot',
       botAvatar: sadBotAvatar,
@@ -63,7 +63,7 @@ const stepsBySubject = {
       message: "Tétée le + régulièrement possible.Mettre du chaud sur la zone avant les tétées.Masser la zone lors des tétées.Exprimer manuellement ou à l'aide d'un tire-lait pour soulager l'engorgement.Cataplasme d'agile verte ou de feuille de choux.",
       end: true,
       user: 'bot',
-      botAvatar: happyBotAvatar,
+      botAvatar: botAvatar,
     },
     {
       id: '5',
@@ -71,13 +71,13 @@ const stepsBySubject = {
       options: [
         { value: 1, label: 'La douleur est apparue en même temps', trigger: '0' },
         { value: 2, label: 'La douleur est apparue à des moments différents', trigger: '4' },
-        
+
       ],
       user: 'bot',
-      botAvatar: botAvatar,
+      botAvatar: sadBotAvatar,
     },
   ],
-  "sujet 2": [
+  "Mon bébé tête tout le temps": [
     {
       id: '1',
       message: 'Question pour sujet 2?',
@@ -89,7 +89,7 @@ const stepsBySubject = {
       user: 'bot',
       botAvatar: botAvatar,
     },
-   
+
     {
       id: '3',
       message: 'Mauvaise réponse, essayez à nouveau.',
@@ -112,7 +112,7 @@ const stepsBySubject = {
       botAvatar: botAvatar,
     },
   ],
-  "sujet 3": [
+  "Pas assez de lait": [
     {
       id: '1',
       message: 'Question pour sujet 3?',
@@ -124,7 +124,7 @@ const stepsBySubject = {
       user: 'bot',
       botAvatar: botAvatar,
     },
-   
+
     {
       id: '3',
       message: 'Mauvaise réponse, essayez à nouveau.',
@@ -147,7 +147,7 @@ const stepsBySubject = {
       botAvatar: botAvatar,
     },
   ],
-  "sujet 4": [
+  "La fatigue": [
     {
       id: '1',
       message: 'Question pour sujet 4?',
@@ -159,7 +159,7 @@ const stepsBySubject = {
       user: 'bot',
       botAvatar: botAvatar,
     },
-   
+
     {
       id: '3',
       message: 'Mauvaise réponse, essayez à nouveau.',
@@ -182,7 +182,7 @@ const stepsBySubject = {
       botAvatar: botAvatar,
     },
   ],
-  "sujet 5": [
+  "L’alimentation": [
     {
       id: '1',
       message: 'Question pour sujet 5?',
@@ -194,7 +194,7 @@ const stepsBySubject = {
       user: 'bot',
       botAvatar: botAvatar,
     },
-   
+
     {
       id: '3',
       message: 'Mauvaise réponse, essayez à nouveau.',
@@ -217,7 +217,7 @@ const stepsBySubject = {
       botAvatar: botAvatar,
     },
   ],
-  // TODO: ajoutez des étapes similaires pour les autres sujets...
+
 };
 
 function Meezy() {
@@ -225,7 +225,7 @@ function Meezy() {
   const [step, setStep] = useState(null);
   const [history, setHistory] = useState([]);
   const [currentMessage, setCurrentMessage] = useState(null);
-  const [initialStep, setInitialStep] = useState(null);
+  
 
 
   useEffect(() => {
@@ -233,40 +233,34 @@ function Meezy() {
       const currentStep = stepsBySubject[subject].find(s => s.id === step);
       setCurrentMessage(currentStep);
     }
-  }, [step]);
-  
-  
+  }, [step,history]);
+
 
   const handleSubjectClick = (subject) => {
     setSubject(subject);
     setStep('1');
-    setHistory([]);
     const steps = stepsBySubject[subject];
-    setInitialStep(steps.find(s => s.id === '1'));
+    
     setCurrentMessage(steps.find(s => s.id === '1'));
+    setHistory([]);
+   
   };
-  
-  
+
   const handleOptionClick = (option) => {
     const nextStep = stepsBySubject[subject].find(s => s.id === option.trigger);
-  
+    //choix utilisateur
     const userChoice = {
       id: 'userChoice',
       user: 'user',
       message: option.label,
       avatar: userAvatar
     };
-  
-    setHistory(prevHistory => [...prevHistory, currentMessage, userChoice, nextStep]);
+
+    setHistory(prevHistory => [...prevHistory, currentMessage, userChoice]);
+    
     setCurrentMessage(nextStep);
     setStep(option.trigger);
   };
-  
-  
-
-  
-  
-  
 
   const restartChat = () => {
     setStep(null);
@@ -274,86 +268,85 @@ function Meezy() {
     setHistory([]);
     setCurrentMessage(null);
   };
-  
-  
+
+
 
   const currentStep = subject && step ? stepsBySubject[subject].find(s => s.id === step) : null;
 
 
   return (
     <View style={{ flex: 1, paddingTop: 50, backgroundColor: "#d7d7d7" }}>
-    <ScrollView style={{ paddingHorizontal: 20 }}>
-    {history.map((s, i) => {
-      if (s.id === 'userChoice') {
-        return (
-          <View key={i} style={styles.messageContainer(s.user)}>
-          <View style={styles.messageBubble(s.user)}>
-            <Text style={styles.messageText}>{s.message}</Text>
+      <ScrollView style={{ paddingHorizontal: 20 }}>
+        {history.map((s, i) => {
+          if (s.id === 'userChoice') {
+            return (
+              <View key={i} style={styles.messageContainer(s.user)}>
+                <View style={styles.messageBubble(s.user)}>
+                  <Text style={styles.messageText}>{s.message}</Text>
+                </View>
+                {s.user === 'user' && <Image source={s.avatar} style={styles.avatar} />}
+              </View>
+            );
+           } 
+          else {
+            return (
+              <View key={i} style={styles.messageContainer(s.user)}>
+                {s.user === 'bot' && <Image source={s.botAvatar} style={styles.avatar} />}
+                <View style={styles.messageBubble(s.user)}>
+                  <Text style={styles.messageText}>{s.message}</Text>
+                </View>
+                {s.user === 'user' && <Image source={s.avatar} style={styles.avatar} />}
+              </View>
+            );
+          }
+        })}
+        {/* Meezy question */}
+        {currentMessage && (
+        <View style={styles.messageContainer(currentMessage.user)}>
+          {currentMessage.user === 'bot' && <Image source={currentMessage.botAvatar} style={styles.avatar} />}
+          <View style={styles.messageBubble(currentMessage.user)}>
+            <Text style={styles.messageText}>{currentMessage.message}</Text>
           </View>
-            {s.user === 'user' && <Image source={s.avatar} style={styles.avatar} />}
-          </View>
-        );
-      } else {
-        return (
-          <View key={i} style={styles.messageContainer(s.user)}>
-            {s.user === 'bot' && <Image source={s.botAvatar} style={styles.avatar} />}
-            <View style={styles.messageBubble(s.user)}>
-              <Text style={styles.messageText}>{s.message}</Text>
-            </View>
-            {s.user === 'user' && <Image source={s.avatar} style={styles.avatar} />}
-          </View>
-        );
-      }
-    })}
-    
-    
-    
-    
-  </ScrollView>
-  {currentMessage && (
-    <View style={styles.messageContainer(currentMessage.user)}>
-      {currentMessage.user === 'bot' && <Image source={currentMessage.botAvatar} style={styles.avatar} />}
-      <View style={styles.messageBubble(currentMessage.user)}>
-        <Text style={styles.messageText}>{currentMessage.message}</Text>
-      </View>
-      {currentMessage.user === 'user' && <Image source={currentMessage.avatar} style={styles.avatar} />}
+          {currentMessage.user === 'user' && <Image source={currentMessage.avatar} style={styles.avatar} />}
+        </View>
+      )}
+       
+
+
+      </ScrollView>
+      {/* premiere etape du chat choisir un sujet */}
+      {!subject && (
+        <View style={styles.optionsContainer}>
+          {subjects.map((subject, i) => (
+            <TouchableOpacity
+              key={i}
+              style={styles.optionButton}
+              onPress={() => handleSubjectClick(subject)}
+            >
+              <Text style={styles.optionText}>{subject}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+        {/* options de reponses */}
+      {currentStep && currentStep.options && (
+        <View style={styles.optionsContainer}>
+          {currentStep.options.map((option, i) => (
+            <TouchableOpacity
+              key={i}
+              style={styles.optionButton}
+              onPress={() => handleOptionClick(option)}
+            >
+              <Text style={styles.optionText}>{option.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )} 
+      {currentStep && currentStep.end && <Button title="Recommencer" color={COLORS.primary} onPress={restartChat} />}
     </View>
-  )}
-  
-  
-  
-  {!subject && (
-    <View style={styles.optionsContainer}>
-      {subjects.map((subject, i) => (
-        <TouchableOpacity
-          key={i}
-          style={styles.optionButton}
-          onPress={() => handleSubjectClick(subject)}
-        >
-          <Text style={styles.optionText}>{subject}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  )}
-  
-  {currentStep && currentStep.options && (
-    <View style={styles.optionsContainer}>
-      {currentStep.options.map((option, i) => (
-        <TouchableOpacity
-          key={i}
-          style={styles.optionButton}
-          onPress={() => handleOptionClick(option)}
-        >
-          <Text style={styles.optionText}>{option.label}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  )}
-  {currentStep && currentStep.end && <Button title="Restart" color={COLORS.primary} onPress={restartChat} />}
-</View>
 
   );
-  
+
 }
 const styles = StyleSheet.create({
   messageContainer: (user) => ({
