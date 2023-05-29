@@ -21,6 +21,7 @@ export default function App() {
 
     <NavigationContainer>
     <Header/>
+    {/*Tab bar icon */}
     <Tab.Navigator
     screenOptions={({ route }) => ({
       headerShown: false ,
