@@ -233,7 +233,7 @@ function Meezy() {
       const currentStep = stepsBySubject[subject].find(s => s.id === step);
       setCurrentMessage(currentStep);
     }
-  }, [step,history]);
+  }, [step]);
 
 
   const handleSubjectClick = (subject) => {
@@ -246,6 +246,7 @@ function Meezy() {
    
   };
 
+  // au click sur un option
   const handleOptionClick = (option) => {
     const nextStep = stepsBySubject[subject].find(s => s.id === option.trigger);
     //choix utilisateur
@@ -257,8 +258,8 @@ function Meezy() {
     };
 
     setHistory(prevHistory => [...prevHistory, currentMessage, userChoice]);
-    
     setCurrentMessage(nextStep);
+    //prochaine question
     setStep(option.trigger);
   };
 
@@ -275,8 +276,9 @@ function Meezy() {
 
 
   return (
-    <View style={{ flex: 1, paddingTop: 50, backgroundColor: "#d7d7d7" }}>
+    <View style={{ flex: 1, paddingTop: 50, backgroundColor: "#ffffff" }}>
       <ScrollView style={{ paddingHorizontal: 20 }}>
+        {/* parcour l'element de history pour afficher les messages du chat */}
         {history.map((s, i) => {
           if (s.id === 'userChoice') {
             return (
@@ -311,9 +313,8 @@ function Meezy() {
         </View>
       )}
        
-
-
       </ScrollView>
+
       {/* premiere etape du chat choisir un sujet */}
       {!subject && (
         <View style={styles.optionsContainer}>

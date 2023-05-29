@@ -4,6 +4,7 @@ import { images, COLORS, icons, FONT, SIZES } from '../components/constants';
 import { LinearGradient } from 'expo-linear-gradient';
 
 function Home() {
+  
   return (
     <View style={styles.container}>
       <Image source={images.meezyHeureux} style={styles.image} />
