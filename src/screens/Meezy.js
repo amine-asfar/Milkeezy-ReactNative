@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
-import { images, COLORS, icons } from '../components/constants';
+import { COLORS,images } from '../components/constants';
 
 const userAvatar = require('../assets/images/UserMeezy.png');
 const botAvatar = require('../assets/images/Meezy.png');
@@ -235,12 +235,11 @@ function Meezy() {
     }
   }, [step]);
 
-
+  //choix sujet
   const handleSubjectClick = (subject) => {
     setSubject(subject);
     setStep('1');
     const steps = stepsBySubject[subject];
-    
     setCurrentMessage(steps.find(s => s.id === '1'));
     setHistory([]);
    
@@ -263,6 +262,7 @@ function Meezy() {
     setStep(option.trigger);
   };
 
+  // au click sur le bouton recommencer
   const restartChat = () => {
     setStep(null);
     setSubject(null);
@@ -278,9 +278,14 @@ function Meezy() {
   return (
     <View style={{ flex: 1, paddingTop: 50, backgroundColor: "#ffffff" }}>
       <ScrollView style={{ paddingHorizontal: 20 }}>
+      {!subject && (
+        <View style={styles.MeezyContainer}>
+          <Image source={images.meezyHeureux} style={styles.Meezy} />
+        </View>
+      )}
         {/* parcour l'element de history pour afficher les messages du chat */}
         {history.map((s, i) => {
-          if (s.id === 'userChoice') {
+          if (s.id === 'userChoice') { // message de l'utilisateur
             return (
               <View key={i} style={styles.messageContainer(s.user)}>
                 <View style={styles.messageBubble(s.user)}>
@@ -290,7 +295,7 @@ function Meezy() {
               </View>
             );
            } 
-          else {
+          else { // message du bot
             return (
               <View key={i} style={styles.messageContainer(s.user)}>
                 {s.user === 'bot' && <Image source={s.botAvatar} style={styles.avatar} />}
@@ -343,6 +348,7 @@ function Meezy() {
           ))}
         </View>
       )} 
+      {/* bouton recommencer */}
       {currentStep && currentStep.end && <Button title="Recommencer" color={COLORS.primary} onPress={restartChat} />}
     </View>
 
@@ -394,6 +400,20 @@ const styles = StyleSheet.create({
   optionText: {
     color: '#fff',
     fontSize: 16,
+  },
+  MeezyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  Meezy: {
+    
+    resizeMode: 'contain',
+    width: 300,
+    height: 300,
+    marginLeft: 10,
+    marginRight: 10,
   },
 });
 
